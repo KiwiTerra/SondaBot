@@ -1,7 +1,7 @@
-package fr.nolan;
+package fr.nolan.sondabot;
 
-import fr.nolan.config.Options;
-import fr.nolan.jda.JDAManager;
+import fr.nolan.sondabot.config.Options;
+import fr.nolan.sondabot.jda.JDAManager;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.logging.log4j.LogManager;

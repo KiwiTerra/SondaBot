@@ -1,4 +1,4 @@
-package fr.nolan.config;
+package fr.nolan.sondabot.config;
 
 import org.apache.commons.configuration2.FileBasedConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;

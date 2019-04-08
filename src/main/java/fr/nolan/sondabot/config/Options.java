@@ -1,4 +1,4 @@
-package fr.nolan.config;
+package fr.nolan.sondabot.config;
 
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;

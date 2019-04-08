@@ -1,22 +1,23 @@
-package fr.nolan.commands;
+package fr.nolan.sondabot.commands;
 
-import fr.nolan.poll.Poll;
+import fr.nolan.sondabot.poll.Poll;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.*;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 public class PollCommand extends SondaCommand {
 
     public PollCommand() {
-        super("poll");
+        super("poll", ChannelType.TEXT);
     }
 
     @Override
-    public void execute(Member member, TextChannel channel, Message message, String[] args) {
-        if (!channel.getType().equals(ChannelType.TEXT))
-            return;
+    public void execute(User user, Message message, Optional<Poll> poll, String... args) {
+        Member member = message.getGuild().getMember(user);
+        MessageChannel channel = message.getChannel();
 
         if (!(member.getRoles().stream().anyMatch(role -> role.getName().equals("Sondeur")) ||
                 member.hasPermission(Permission.ADMINISTRATOR))) {
@@ -38,13 +39,10 @@ public class PollCommand extends SondaCommand {
         if (!channel.getName().equals("commandes"))
             return;
 
-        Poll poll = Poll.getPollByUser(member.getUser());
-        if (poll != null)
-            Poll.delete(poll);
+
+        poll.ifPresent(Poll::delete);
         Poll newPoll = new Poll(member);
         Poll.addPoll(newPoll);
-
-        User user = member.getUser();
 
         EmbedBuilder embedBuilder = new EmbedBuilder();
         embedBuilder.setAuthor(user.getName(), user.getAvatarUrl());
@@ -60,6 +58,5 @@ public class PollCommand extends SondaCommand {
                     + "**Terminer le sondage:** ``.end`` (2 choix minimums) \n"
                     + "**Annuler le sondage:** ``.cancel``").queue();
         });
-
     }
 }

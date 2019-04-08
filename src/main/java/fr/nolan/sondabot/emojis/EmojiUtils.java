@@ -1,4 +1,4 @@
-package fr.nolan.emojis;
+package fr.nolan.sondabot.emojis;
 /*
 Copyright 2018 by coder4 https://github.com/liheyuan/simple-emoji-4j
 

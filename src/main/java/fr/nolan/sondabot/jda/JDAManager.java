@@ -1,8 +1,8 @@
-package fr.nolan.jda;
+package fr.nolan.sondabot.jda;
 
-import fr.nolan.SondaBot;
-import fr.nolan.config.ConfigurationBuilder;
-import fr.nolan.modules.InitializationModule;
+import fr.nolan.sondabot.SondaBot;
+import fr.nolan.sondabot.config.ConfigurationBuilder;
+import fr.nolan.sondabot.modules.InitializationModule;
 import net.dv8tion.jda.bot.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.bot.sharding.ShardManager;
 import net.dv8tion.jda.core.OnlineStatus;
@@ -21,7 +21,7 @@ public class JDAManager {
     private static ShardManager client;
 
     public JDAManager() {
-        final File file = new File("bot.properties");
+        File file = new File("bot.properties");
         try {
             if (!file.exists())
                 FileUtils.copyURLToFile(Objects.requireNonNull(getClass().getClassLoader().getResource("bot.properties")), new File("bot.properties"));
@@ -29,10 +29,10 @@ public class JDAManager {
             // Impossible
         }
 
-        final Configuration properties = new ConfigurationBuilder(PropertiesConfiguration.class, file).getConfiguration();
+        Configuration properties = new ConfigurationBuilder(PropertiesConfiguration.class, file).getConfiguration();
         SondaBot.getInstance().setProperties(properties);
 
-        final String token = properties.getString("token");
+        String token = properties.getString("token");
 
         if (token == null) {
             SondaBot.getLogger().error("Token cannot be null");
